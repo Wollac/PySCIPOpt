@@ -618,6 +618,28 @@ cdef class Model:
            ub = SCIPinfinity(self._scip)
         PY_SCIP_CALL(SCIPchgVarUb(self._scip, var.var, ub))
 
+    def chgVarLbGlobal(self, Variable var, lb=None):
+        """Changes the global lower bound of the specified variable.
+
+        Keyword arguments:
+        var -- the variable
+        lb -- the lower bound (default None)
+        """
+        if lb is None:
+           lb = -SCIPinfinity(self._scip)
+        PY_SCIP_CALL(SCIPchgVarLbGlobal(self._scip, var.var, lb))
+
+    def chgVarUbGlobal(self, Variable var, ub=None):
+        """Changes the global upper bound of the specified variable.
+
+        Keyword arguments:
+        var -- the variable
+        ub -- the upper bound (default None)
+        """
+        if ub is None:
+           ub = SCIPinfinity(self._scip)
+        PY_SCIP_CALL(SCIPchgVarUbGlobal(self._scip, var.var, ub))
+
     def chgVarType(self, Variable var, vtype):
         cdef SCIP_Bool infeasible
         if vtype in ['C', 'CONTINUOUS']:
